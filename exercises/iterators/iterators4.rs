@@ -3,7 +3,23 @@
 // Execute `rustlings hint iterators4` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
+use std::path::Iter;
+
+struct Counter {
+    curr: u64,
+    next: u64,
+}
+
+impl Iterator for Counter {
+    type Item = u64;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.curr *= self.next;
+        self.next += 1;
+    
+        Some(self.next)
+    }
+}
 
 pub fn factorial(num: u64) -> u64 {
     // Complete this function to return the factorial of num
@@ -15,6 +31,11 @@ pub fn factorial(num: u64) -> u64 {
     // For an extra challenge, don't use:
     // - recursion
     // Execute `rustlings hint iterators4` for hints.
+    let mut counter = Counter { curr: 1, next: 1 };
+    for _ in 0..num {
+        counter.next();
+    }
+    counter.curr
 }
 
 #[cfg(test)]
